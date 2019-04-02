@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Simple Calculator</title>
+  <link rel="stylesheet" href="js/jquery.mobile-1.4.5.css">
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery.mobile-1.4.5.js"></script>
+  <style>
+    #answers {
+      display: none;
+    }
+
+    #notsimp {
+      display: none;
+    }
+
+    #popsup {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div data-role="page" id="pg1">
+
+    <!-- header for the page -->
+    <div data-role="header">
+      <h2 id="simp">Simple Calculator</h2>
+      <h2 id="notsimp">RESULTS</h2>
+    </div>
+    <!-- Tabs -->
+    <div data-role="tabs">
+      <!-- This is the navbar -->
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#home" data-icon="home" class="ui-btn-active">Home</a></li>
+          <li><a href="#calcu" data-icon="grid">Calculation</a></li>
+          <li><a href="#info" data-icon="info">Help</a></li>
+        </ul>
+      </div>
+      <div data-role="main" class="ui-content">
+        <!-- home -->
+        <div id="home">
+          <h4>This is a jQuery mobile exercise which provides the user with a calculator for basic mathemathical operations</h2>
+        </div>
+        <!-- Claculation -->
+        <div id="calcu">
+          <form id="calculation">
+            <!-- text input -->
+            <input id="valA" type="text" value="">
+            <!-- collapsible box for computations -->
+            <fieldset data-role="collapsible" data-expanded-icon="carat-u" data-collapsed-icon="carat-d" data-iconpos="right">
+              <legend>operation</legend>
+              <div data-role="controlgroup" id="grouped">
+                <label>
+                  <input name="radio" id="plus" type="radio" value="plus"> +
+                </label>
+                <label>
+                  <input name="radio" id="minus" type="radio" value="minus"> -
+                </label>
+                <label>
+                  <input name="radio" id="multiply" type="radio" value="multi"> x
+                </label>
+                <label>
+                  <input name="radio" id="divide" type="radio" value="divide"> /
+                </label>
+              </div>
+            </fieldset>
+            <!-- text input -->
+            <input id="valB" type="text" value="" data-clear-btn="true">
+            <!-- button to calculate -->
+            <a href="#" id="comp" class="ui-btn ui-corner-all">Calculate</a>
+          </form>
+          <div id="answers">
+            <br>
+            <br>
+            <h2>Operation:</h2>
+            <br>
+            <textarea id="formula"></textarea>
+            <br>
+            <h2>Results:</h2>
+            <textarea id="ans"></textarea>
+            <a href="#" id="backto" class="ui-btn ui-icon-back ui-btn-icon-left">Back</a>
+
+          </div>
+        </div>
+        <!-- INFO -->
+        <div id="info">
+          <div id="words">
+            <h4>This is the help section and provides basic information about how to use the calculator</h4>
+            <a href="Simple calculator cont.html" id="shu" class="ui-btn ui-icon-info ui-btn-icon-left" data-transition="pop">More info</a>
+          </div>
+          <div id="popsup">
+            <!--Page one Starts Here-->
+            <div data-dialog="true" id="pageOne" data-theme="b">
+              <div data-role="header">
+                <h1>Welcome to my homepage</h1>
+
+              </div>
+
+              <div role="main" class="ui-content">
+                <p> I am now a mobile developer</p>
+                <a href="#pageTwo" class="ui-btn">Button to page two</button>
+                  <a href="#pageTwo" data-transition="slide"> Go to page one</a>
+              </div>
+
+              <div data-role="footer">
+                <h2> Footer (toolbar)</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer -->
+    <div data-role="footer">
+      <h2>Homework</h2>
+    </div>
+  </div>
+  <!-- Logic for the calculator -->
+  <script>
+    $(document).ready(function() {
+      //intializing important variables
+      var valueA;
+      var valueB;
+      var operation;
+      var ans;
+      $("#valA").change(function() {
+        valueA = $("#valA").val();
+      });
+      $("#valB").change(function() {
+        valueB = $("#valB").val();
+      });
+      $("#grouped").change(function() {
+        operation = $("input[name='radio']:checked").val();
+      });
+      $("#comp").click(function() {
+        //Hides the input page and displays results page
+        $("#calculation").hide();
+        $("#simp").hide();
+        $("#notsimp").show();
+        $("#answers").show("fast");
+        //This is the calculator
+        switch (operation) {
+          case "plus":
+            ans = parseInt(valueA) + parseInt(valueB);
+            var a = valueA + " + " + valueB;
+            $("textarea#formula").val(a);
+            $("textarea#ans").val(ans);
+            break;
+          case "minus":
+            ans = parseInt(valueA) - parseInt(valueB);
+            var a = valueA + " - " + valueB;
+            $("textarea#formula").val(a);
+            $("textarea#ans").val(ans);
+            break;
+          case "multi":
+            ans = parseInt(valueA) * parseInt(valueB);
+            var a = valueA + " x " + valueB;
+            $("textarea#formula").val(a);
+            $("textarea#ans").val(ans);
+            break;
+          case "divide":
+            ans = parseInt(valueA) / parseInt(valueB);
+            var a = valueA + " / " + valueB;
+            $("textarea#formula").val(a);
+            $("textarea#ans").val(ans);
+            break;
+          default:
+            ans = "ERROR!";
+        }
+        //to go back to the input page
+        $("#backto").click(function() {
+          $("#calculation").show();
+          $("#simp").show();
+          $("#notsimp").hide();
+          $("#answers").hide("fast");
+        });
+        //To hide the info part and show Dialog
+        $("#shu").click(function() {
+          alert("clicked");
+
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
